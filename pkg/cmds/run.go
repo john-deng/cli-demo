@@ -3,7 +3,6 @@ package cmds
 import (
 	"github.com/spf13/cobra"
 	log "github.com/sirupsen/logrus"
-	"fmt"
 	"os"
 )
 
@@ -22,7 +21,7 @@ func init() {
 }
 
 func handleRunCmd(cmd *cobra.Command, args []string)  {
-	fmt.Println("cli-demo run ...")
+	log.Info("cli-demo run ...")
 	wd, err := os.Getwd()
 	if nil == err {
 		log.Debugf("working dir: %s", wd)

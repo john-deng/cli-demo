@@ -3,7 +3,7 @@ package cmds
 import (
 	"fmt"
 	"os"
-
+	log "github.com/sirupsen/logrus"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -27,7 +27,7 @@ var RootCmd = &cobra.Command{
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cobra.yaml)")
+	RootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.cli-demo/config.yml)")
 	//RootCmd.PersistentFlags().Bool("viper", true, "Use Viper for configuration")
 	viper.BindPFlag("author", RootCmd.PersistentFlags().Lookup("author"))
 	viper.BindPFlag("projectbase", RootCmd.PersistentFlags().Lookup("projectbase"))
@@ -51,11 +51,17 @@ func initConfig() {
 
 		// Search config in home directory with name ".cobra" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".cobra")
+		viper.SetConfigName(".cli-demo/config")
+		viper.SetConfigType("yaml")
 	}
 
 	if err := viper.ReadInConfig(); err != nil {
 		fmt.Println("Can't read config:", err)
 		os.Exit(1)
 	}
+
+	appName := viper.Get("app.name")
+	log.Debugf("app.name: %s", appName)
+	appAuthor := viper.Get("app.author")
+	log.Debugf("app.author: %s", appAuthor)
 }

@@ -1,0 +1,4 @@
+# config file
+app:
+  name: cli-demo
+  author: John Deng <john.deng@outlook.com>
