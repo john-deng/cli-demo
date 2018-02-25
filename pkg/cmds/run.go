@@ -13,7 +13,7 @@ var runCmd = &cobra.Command{
 	Use:   "run",
 	Short: "run command of cli-demo",
 	Long:  `the run command of cli-demo`,
-	Run: runRunCmd,
+	Run:   handleRunCmd,
 }
 
 func init() {
@@ -21,7 +21,7 @@ func init() {
 	RootCmd.AddCommand(runCmd)
 }
 
-func runRunCmd(cmd *cobra.Command, args []string)  {
+func handleRunCmd(cmd *cobra.Command, args []string)  {
 	fmt.Println("cli-demo run ...")
 	wd, err := os.Getwd()
 	if nil == err {
